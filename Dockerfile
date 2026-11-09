@@ -32,7 +32,10 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Setup user configuration
-RUN groupadd --gid $USER_GID $USERNAME \
+# Ubuntu 24.04 images ship a default "ubuntu" user with UID/GID 1000, which
+# clashes with the host user's IDs on most systems, so remove it first.
+RUN if id -u ubuntu >/dev/null 2>&1; then userdel -r ubuntu; fi \
+    && groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME --groups dialout \
     && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
     && echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/$USERNAME/.bashrc \
