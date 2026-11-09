@@ -1,0 +1,9 @@
+xhost +SI:localuser:nathan   # sur l hote, a chaque session, sinon Gazebo/RViz crashent (cf JOURNAL.md)
+
+ros2 launch franka_gazebo_bringup gazebo_franka_arm_example_controller.launch.py \
+    controller:=joint_impedance_example_controller load_gripper:=true
+
+ros2 launch franka_gazebo_bringup gazebo_franka_arm_example_controller.launch.py controller:=keyboard_joint1_controller
+python3 src/franka_bringup/scripts/keyboard_joint1.py
+
+
