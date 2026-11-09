@@ -379,3 +379,8 @@ mesure : la pose renvoyée date de la réception du paquet, à moins de 5 ms pr�
 ### Livrable
 Document de synthèse créé (Claude Docs) : https://claude.ai/artifact/ApLfMQPPjeowpot1oTeCH5
 Il couvre le contexte, les fichiers, le clavier, la commande cinématique (QP), le protocole UDP, les tests, les problèmes 1–11, les différences avec le dépôt S7, le mode d'emploi et ce qui reste à faire.
+
+### Dépôt Git prêt à pousser
+- Branche `fr3-teleop` créée depuis `jazzy` (v3.5.3), avec 4 commits : correctif Dockerfile, contrôleur YAML, scripts, docs (README + journal).
+- Le remote `origin` (frankarobotics) est renommé en `upstream`. Il reste à créer le dépôt `franka_ros2` sur GitHub et à l'ajouter comme `origin`.
+- `gh` n'est pas installé : le dépôt GitHub doit être créé à la main sur le site.
