@@ -391,3 +391,8 @@ Il couvre le contexte, les fichiers, le clavier, la commande cinématique (QP), 
   - l'objectif final et le reste à faire manquaient : ils sont ajoutés ;
   - un clone neuf n'a pas de `.env`, qui est ignoré par git, alors que `docker compose` en a besoin (`CONTAINER_NAME`) : la commande qui le crée est ajoutée ;
   - les auto-tests de `keyboard_ik.py` sont mentionnés à côté de ceux de `udp_ik.py`.
+
+**12. Push refusé : `Permission denied (publickey)`**
+- Constat : la clé `~/.ssh/id_ed25519` est bien enregistrée sur GitHub, et le serveur l'accepte (`Server accepts key`).
+- Cause : la clé privée est protégée par une passphrase. Les commandes de l'assistant tournent sans terminal, donc SSH ne peut pas la demander, et l'agent SSH était vide. En plus, le remote était en HTTPS, sans identifiants.
+- Résolution : `ssh-add ~/.ssh/id_ed25519` (passphrase saisie par l'utilisateur), remote passé en SSH (`git@github.com:NathanVayva/franka_ros2.git`), puis `git push -u origin fr3-teleop`. La ligne Co-Authored-By a été retirée des commits avant le push, à la demande de l'utilisateur.
