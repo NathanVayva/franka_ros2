@@ -1,3 +1,24 @@
+# Fork : téléopération cartésienne du FR3 (clavier + UDP)
+
+Ce fork de [frankarobotics/franka_ros2](https://github.com/frankarobotics/franka_ros2) (branche `jazzy`, v3.5.3) ajoute deux scripts de commande cinématique du FR3 (QP sous contraintes avec scipy, à 200 Hz) :
+
+- `franka_bringup/scripts/keyboard_ik.py` : la pince suit une cible déplacée au clavier (z/q/s/d, r/f), orientée vers le bas.
+- `franka_bringup/scripts/udp_ik.py` : la pince suit des poses 6D reçues par UDP (port 5005), avec un retour de pose et le calcul du RTT.
+
+Les deux s'appuient sur `keyboard_joint1_controller` (`JointGroupVelocityController` sur les 7 joints), déclaré dans les YAML de `franka_bringup` et `franka_gazebo_bringup`.
+Le détail se trouve dans [`JOURNAL.md`](JOURNAL.md) : choix, problèmes et résolutions, tests.
+
+```bash
+xhost +SI:localuser:$USER          # sur l'hôte, à chaque session
+docker compose up -d && docker exec -it franka_ros2_jazzy bash
+ros2 launch franka_gazebo_bringup gazebo_franka_arm_example_controller.launch.py \
+    controller:=keyboard_joint1_controller load_gripper:=true
+python3 /ros2_ws/src/franka_bringup/scripts/keyboard_ik.py      # ou udp_ik.py
+python3 /ros2_ws/src/franka_bringup/scripts/udp_ik.py test      # auto-tests
+```
+
+---
+
 # ROS 2 Integration for Franka Robotics Research Robots
 
 [![CI](https://github.com/frankarobotics/franka_ros2/actions/workflows/ci.yml/badge.svg)](https://github.com/frankarobotics/franka_ros2/actions/workflows/ci.yml)
