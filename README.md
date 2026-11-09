@@ -8,13 +8,22 @@ Ce fork de [frankarobotics/franka_ros2](https://github.com/frankarobotics/franka
 Les deux s'appuient sur `keyboard_joint1_controller` (`JointGroupVelocityController` sur les 7 joints), déclaré dans les YAML de `franka_bringup` et `franka_gazebo_bringup`.
 Le détail se trouve dans [`JOURNAL.md`](JOURNAL.md) : choix, problèmes et résolutions, tests.
 
+**Objectif final** : piloter le bras avec un stylet haptique, avec retour d'effort. Les scripts actuels sont des étapes intermédiaires. Le programme du stylet, qui tournera sur un autre PC Linux, remplacera l'émetteur UDP.
+
+Reste à faire :
+- retour d'effort vers le stylet ;
+- commande par compliance active ;
+- passage au vrai robot.
+
 ```bash
 xhost +SI:localuser:$USER          # sur l'hôte, à chaque session
+# .env requis (voir « Docker Container Installation » plus bas) :
+printf "USER_UID=%s\nUSER_GID=%s\nCONTAINER_NAME=franka_ros2_jazzy\n" "$(id -u)" "$(id -g)" > .env
 docker compose up -d && docker exec -it franka_ros2_jazzy bash
 ros2 launch franka_gazebo_bringup gazebo_franka_arm_example_controller.launch.py \
     controller:=keyboard_joint1_controller load_gripper:=true
 python3 /ros2_ws/src/franka_bringup/scripts/keyboard_ik.py      # ou udp_ik.py
-python3 /ros2_ws/src/franka_bringup/scripts/udp_ik.py test      # auto-tests
+python3 /ros2_ws/src/franka_bringup/scripts/keyboard_ik.py test # auto-tests (idem avec udp_ik.py)
 ```
 
 ---

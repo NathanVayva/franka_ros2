@@ -384,3 +384,10 @@ Il couvre le contexte, les fichiers, le clavier, la commande cinématique (QP), 
 - Branche `fr3-teleop` créée depuis `jazzy` (v3.5.3), avec 4 commits : correctif Dockerfile, contrôleur YAML, scripts, docs (README + journal).
 - Le remote `origin` (frankarobotics) est renommé en `upstream`. Il reste à créer le dépôt `franka_ros2` sur GitHub et à l'ajouter comme `origin`.
 - `gh` n'est pas installé : le dépôt GitHub doit être créé à la main sur le site.
+
+## 2026-11-09 — Objectif final et vérification du README
+- Objectif final précisé par l'utilisateur : piloter le bras avec un **stylet haptique avec retour d'effort**. Un autre élève choisit le stylet, qui sera branché sur un autre PC Linux. Il faudra aussi une **commande par compliance active**. Aucun des deux n'est commencé : l'utilisateur a demandé d'attendre.
+- Vérification du README :
+  - l'objectif final et le reste à faire manquaient : ils sont ajoutés ;
+  - un clone neuf n'a pas de `.env`, qui est ignoré par git, alors que `docker compose` en a besoin (`CONTAINER_NAME`) : la commande qui le crée est ajoutée ;
+  - les auto-tests de `keyboard_ik.py` sont mentionnés à côté de ceux de `udp_ik.py`.
