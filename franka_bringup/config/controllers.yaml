@@ -62,6 +62,9 @@
       joint_velocity_example_controller:
         type: franka_example_controllers/JointVelocityExampleController
 
+      keyboard_joint1_controller:
+        type: velocity_controllers/JointGroupVelocityController
+
       model_example_controller:
         type: franka_example_controllers/ModelExampleController
 
@@ -227,3 +230,8 @@
           has_jerk_limits        : false
           max_jerk               : 10.0  # rad/s^3
           min_jerk               : -10.0  # rad/s^3
+
+/**:
+  keyboard_joint1_controller:
+    ros__parameters:
+      joints: [fr3_joint1, fr3_joint2, fr3_joint3, fr3_joint4, fr3_joint5, fr3_joint6, fr3_joint7]
